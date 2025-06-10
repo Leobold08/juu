@@ -538,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &236851787
 Transform:
   m_ObjectHideFlags: 0
@@ -2098,6 +2098,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 236851787}
     m_Modifications:
+    - target: {fileID: 134230938360408036, guid: c991406de58f5854394d8d6e31f7445d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 785751042689916487, guid: c991406de58f5854394d8d6e31f7445d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5837793
@@ -2360,7 +2364,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2398,6 +2402,10 @@ PrefabInstance:
     - target: {fileID: 4430269748283308058, guid: 5c4c6b3785afd9940898a80675ef266f, type: 3}
       propertyPath: m_Name
       value: zikzakDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627015030354510693, guid: 5c4c6b3785afd9940898a80675ef266f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5428655547350154466, guid: 5c4c6b3785afd9940898a80675ef266f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2457,6 +2465,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 236851787}
     m_Modifications:
+    - target: {fileID: 134230938360408036, guid: c991406de58f5854394d8d6e31f7445d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 785751042689916487, guid: c991406de58f5854394d8d6e31f7445d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.4362202
