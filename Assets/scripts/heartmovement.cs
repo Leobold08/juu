@@ -1,12 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class heartmovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public Slider healthSlider;
     private Rigidbody2D rb;
     public UI UI;
     private float MaxHealth = 100f;
     private float CurrentHealth;
+    public float damageCooldown = 1f; // 1 second cooldown
+    private float lastDamageTime = -1f;
 
     void Awake()
     {
@@ -15,10 +19,23 @@ public class heartmovement : MonoBehaviour
         Health();
     }
 
+    void Start()
+    {
+        healthSlider.maxValue = MaxHealth;
+        healthSlider.value = CurrentHealth;
+    }
+
     void Update()
     {
         Takedamage();
         Death();
+        healthSlider.value = CurrentHealth;
+        if (CurrentHealth <= 0)
+        {
+            CurrentHealth = 0;
+            Debug.Log("You are dead!");
+            return;
+        }
 
         if (UI.InUi == false)
         {
@@ -31,7 +48,7 @@ public class heartmovement : MonoBehaviour
         }
         else
         {
-            rb.position = new Vector2(0, 0);
+            rb.position = new Vector2(0, -2);
             rb.linearVelocity = Vector2.zero;
             return;
         }
@@ -49,8 +66,12 @@ public class heartmovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CurrentHealth -= 10f;
-            Debug.Log("hp is " + CurrentHealth);
+            if (Time.time - lastDamageTime >= damageCooldown)
+            {
+                CurrentHealth -= 10f;
+                lastDamageTime = Time.time;
+                Debug.Log("hp is " + CurrentHealth);
+            }
             return;
         }
     }
@@ -68,8 +89,12 @@ public class heartmovement : MonoBehaviour
     {
         if (other.CompareTag("Ball10"))
         {
-            CurrentHealth -= 10f;
-            Debug.Log("Collided with enemy! hp is " + CurrentHealth);
+            if (Time.time - lastDamageTime >= damageCooldown)
+            {
+                CurrentHealth -= 10f;
+                lastDamageTime = Time.time;
+                Debug.Log("Collided with enemy! hp is " + CurrentHealth);
+            }
         }
     }
 
