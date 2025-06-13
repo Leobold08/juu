@@ -1,14 +1,15 @@
+using System.Xml.XPath;
 using UnityEngine;
 
 public class Playermovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public Enemy enemy;
     private Rigidbody2D rb;
     Camera mainCamera;
-    public GameObject Dialoguebox;
-    public GameObject player;
-
-    private bool canTalk = false;
+    public Assigndialogue assignDialogue; // Reference to the dialogue assignment script
+    public bool canTalk = false;
+    public float xptotal;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -25,6 +26,7 @@ public class Playermovement : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
+        xptotal = 0f;
     }
 
     // Update is called once per frame
@@ -39,10 +41,10 @@ public class Playermovement : MonoBehaviour
         // Check for interaction
         if (canTalk && Input.GetKeyDown(KeyCode.Space))
         {
-            Dialoguebox.SetActive(true);
-            player.SetActive(false);
-            canTalk = false;
+            assignDialogue.dialogue();
         }
+        xptotal += enemy.xpGain;
+        Debug.Log("Total XP: " + xptotal);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +52,7 @@ public class Playermovement : MonoBehaviour
         if (other.CompareTag("enemyEC"))
         {
             canTalk = true;
+            assignDialogue = other.GetComponent<Assigndialogue>(); // Assign the dialogue from the trigger
         }
     }
 

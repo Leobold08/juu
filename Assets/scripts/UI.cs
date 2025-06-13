@@ -1,13 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     public heartmovement Heart;
     public GameObject HitMarker;
     public Enemy enemy;
-    public Playermovement playerMovement;
+    public Slider EnemyHealthSlider;
     public TextMeshProUGUI UiText;
     public TextMeshProUGUI InventoryButtonText;
     public bool InUi = true;
@@ -31,10 +32,11 @@ public class UI : MonoBehaviour
     public void Update()
     {
         ResetUi();
-
+        EnemyHealthSlider.value = enemy.CurrentEhp;
+        EnemyHealthSlider.maxValue = enemy.MaxEhp;
     }
 
-    void ResetUi()
+    public void ResetUi()
     {
         if (!combatUI.activeSelf)
         {
@@ -48,6 +50,7 @@ public class UI : MonoBehaviour
             Phase1.SetActive(false);
             Phase2.SetActive(false);
             SmallerArea.SetActive(false);
+            enemy.CurrentEhp = enemy.MaxEhp;
         }
         
     }
@@ -157,18 +160,12 @@ public class UI : MonoBehaviour
     // Phase Sequences-----------------------------------------------------------
     private IEnumerator Phase1Sequence()
     {
-
-        yield return StartCoroutine(SmallArea());
-
-        Phase1.SetActive(true);
-        yield return StartCoroutine(EndPhase1AfterDelay());
+        yield return enemy.EndPhase1AfterDelay();
     }
 
     private IEnumerator Phase2Sequence()
     {
-
-        Phase2.SetActive(true);
-        yield return StartCoroutine(EndPhase2AfterDelay());
+        yield return enemy.EndPhase2AfterDelay();
     }
     // Phase Sequences-----------------------------------------------------------
 
@@ -188,23 +185,6 @@ public class UI : MonoBehaviour
 
     //timers-----------------------------------------------------------
     //end phase-----------------------------------------------------------
-    private IEnumerator EndPhase1AfterDelay()
-    {
-        yield return new WaitForSeconds(8);
-        Phase1.SetActive(false);
-        SmallerArea.SetActive(false);
-        InUi = true;
-        buttons.SetActive(true);
-        UiText.text = "";
-    }
-
-    private IEnumerator EndPhase2AfterDelay()
-    {
-        yield return new WaitForSeconds(15);
-        SmallerArea.SetActive(false);
-        InUi = true;
-        buttons.SetActive(true);
-        UiText.text = "";
-    }
+    
     //end phase-----------------------------------------------------------
 }

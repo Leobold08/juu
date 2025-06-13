@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+
 public class enemydialogue : MonoBehaviour
 {
-    public TextMeshProUGUI Enemy1DiaBox;
+    public TextMeshProUGUI EnemysDiaBox;
     public GameObject YesB;
     public GameObject NoB;
     public float typeSpeed = 0.06f; // Speed of each letter
     public GameObject BattleUI;
     public GameObject Dialoguebox;
     public GameObject player;
+    public Enemy ActiveEnemy;
 
     void OnEnable()
     {
@@ -35,6 +37,17 @@ public class enemydialogue : MonoBehaviour
         yield return new WaitForSeconds(1);
         BattleUI.SetActive(true);
         Dialoguebox.SetActive(false);
+        UI ui = FindFirstObjectByType<UI>();
+        if (ui != null && ActiveEnemy != null)
+        {
+            ui.enemy = ActiveEnemy.GetComponent<Enemy>();
+            Debug.Log("Enemy HP is " + ui.enemy.CurrentEhp);
+            Debug.Log("Enemy is " + ui.enemy);
+        }
+        else
+        {
+            Debug.LogWarning("UI or ActiveEnemy not found!");
+        }
     }
 
     public IEnumerator No()
@@ -60,10 +73,10 @@ public class enemydialogue : MonoBehaviour
 
     private IEnumerator TypeText(string message)
     {
-        Enemy1DiaBox.text = "";
+        EnemysDiaBox.text = "";
         foreach (char c in message)
         {
-            Enemy1DiaBox.text += c;
+            EnemysDiaBox.text += c;
             yield return new WaitForSeconds(typeSpeed);
         }
     }

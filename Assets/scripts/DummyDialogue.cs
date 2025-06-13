@@ -11,6 +11,7 @@ public class DummyDialogue : MonoBehaviour
     public GameObject BattleUI;
     public GameObject Dialoguebox;
     public GameObject player;
+    public Enemy ActiveEnemy;
 
     void OnEnable()
     {
@@ -36,6 +37,17 @@ public class DummyDialogue : MonoBehaviour
         yield return new WaitForSeconds(1);
         BattleUI.SetActive(true);
         Dialoguebox.SetActive(false);
+        UI ui = FindFirstObjectByType<UI>();
+        if (ui != null && ActiveEnemy != null)
+        {
+            ui.enemy = ActiveEnemy.GetComponent<Enemy>();
+            Debug.Log("Enemy HP is " + ui.enemy.CurrentEhp);
+            Debug.Log("Enemy is " + ui.enemy);
+        }
+        else
+        {
+            Debug.LogWarning("UI or ActiveEnemy not found!");
+        }
     }
 
     public IEnumerator No()
