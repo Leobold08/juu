@@ -7,8 +7,8 @@ public class heartmovement : MonoBehaviour
     public Slider healthSlider;
     private Rigidbody2D rb;
     public UI UI;
-    private float MaxHealth = 100f;
-    private float CurrentHealth;
+    public float MaxHealth = 100f;
+    public float CurrentHealth;
     public float damageCooldown = 1f; // 1 second cooldown
     private float lastDamageTime = -1f;
 

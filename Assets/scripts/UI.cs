@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    public heartmovement Heart;
+    public heartmovement HM;
     public GameObject HitMarker;
     public Enemy enemy;
     public Slider EnemyHealthSlider;
@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     public bool InUi = true;
     public GameObject buttons;
     public float Phase = 0f;
+    public TextMeshProUGUI EnemyHpTxt;
+    public TextMeshProUGUI PlayerHpTxt;
     // Phase ----------------------------------------------------------
     public GameObject Phase1;
     public GameObject Phase2;
@@ -34,6 +36,8 @@ public class UI : MonoBehaviour
         ResetUi();
         EnemyHealthSlider.value = enemy.CurrentEhp;
         EnemyHealthSlider.maxValue = enemy.MaxEhp;
+        EnemyHpTxt.text = enemy.CurrentEhp + "/" + enemy.MaxEhp;
+        PlayerHpTxt.text = HM.CurrentHealth + "/" + HM.MaxHealth;
     }
 
     public void ResetUi()
@@ -75,7 +79,7 @@ public class UI : MonoBehaviour
     {
         hppanel.SetActive(true);
         InventoryPanel.SetActive(false);
-        Heart.Heal(10f);
+        HM.Heal(10f);
         UiText.text = "You feel better. You healed 10 HP.";
         buttons.SetActive(false);
         NotInUi();
@@ -88,7 +92,7 @@ public class UI : MonoBehaviour
     {
         hppanel.SetActive(true);
         InventoryPanel.SetActive(false);
-        Heart.Heal(50f);
+        HM.Heal(50f);
         UiText.text = "You feel better. You healed 10 HP.";
         buttons.SetActive(false);
         NotInUi();
